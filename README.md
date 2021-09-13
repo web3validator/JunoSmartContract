@@ -30,3 +30,16 @@ rustup update stable
 rustup target list --installed
 rustup target add wasm32-unknown-unknown
 ```
+# Building Juno for testnet use
+A testnet running the Juno chain has been launched to save you of the hassle of running a local network and speed up your development.
+Use go 1.16.3 for compiling the junodexecutable if you are building from source. If you already are running a validator node, it's likely junod is already accessible. If which junod shows output, then you're probably good to go.
+
+```bash
+# clone juno repo
+git clone https://github.com/CosmosContracts/juno.git && cd juno
+
+# build juno executable
+make install
+
+which juno
+```
