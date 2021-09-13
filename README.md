@@ -106,16 +106,16 @@ This example uses the node REPL. If you have node installed, just type node in t
 
 ```bash
 > const initHash = {
-  name: "Poodle Coin",
-  symbol: "POOD",
+  name: "Web34ever Coin",
+  symbol: "web3",
   decimals: 6,
   initial_balances: [
-    { address: "<validator-self-delegate-address>", amount: "12345678000"},
+    { address: "juno1034x52hzw8flvtdc6r4984te2720q72c23y7vd", amount: "12345678000"},
   ]
 };
 < undefined
 > JSON.stringify(initHash);
-< '{"name":"Poodle Coin","symbol":"POOD","decimals":6,"initial_balances":[{"address":"<validator-self-delegate-address>","amount":"12345678000"}]}'
+< '{"name":"Web34ever Coin","symbol":"web3","decimals":6,"initial_balances":[{"address":"juno1034x52hzw8flvtdc6r4984te2720q72c23y7vd","amount":"12345678000"}]}'
 ```
 # Instantiate the contract
 Note also that the --amount is used to initialise the new account associated with the contract.
