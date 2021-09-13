@@ -124,8 +124,8 @@ In the example below, 6 is the value of $CODE_ID.
 
 ```bash
 junod tx wasm instantiate 6 \
-    '{"name":"Poodle Coin","symbol":"POOD","decimals":6,"initial_balances":[{"address":"<validator-self-delegate-address>","amount":"12345678000"}]}' \
-    --amount 50000ujuno  --label "Poodlecoin erc20" --from <your-key> --chain-id <chain-id> --gas auto -y
+    '{"name":"Web34ever Coin","symbol":"web3","decimals":6,"initial_balances":[{"address":"<validator-self-delegate-address>","amount":"12345678000"}]}' \
+    --amount 50000ujuno  --label "Web34evercoin erc20" --from web34ever --chain-id lucina --gas auto -y
 ```
 
 If this succeeds, look in the output and get contract address from output e.g juno1a2b.... or run:
