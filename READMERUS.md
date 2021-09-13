@@ -54,7 +54,7 @@ git checkout v0.10.0 # current at time of writing
 cd contracts/erc20
 ```
 # Компиляция
-We can compile our contract like so:
+Мы можем скомпилировать наш контракт так:
 
 ```bash
 # compile the wasm contract with stable toolchain
@@ -89,11 +89,16 @@ junod tx wasm store cw_erc20.wasm  --from <your-key> --chain-id=<chain-id> --gas
 Теперь мы загрузили контракт, теперь нам нужно его инициализировать.
 Мы используем Web34ever Coin как пример здкесь - $WEB coin задэплоен в Juno testnet.
 
-# Generate JSON with arguments
+# Генерируем JSON с аргументами
 
 To generate the JSON, you can use jq, or, if you're more familiar with JS/node, write a hash and encode it using the node CLI.
 This example uses the node REPL. If you have node installed, just type node in the terminal and hit enter to access it.
 
+Чтобы сгенерировать JSON, вы можете использовать jq или, если вы более знакомы с JS / node, написать хэш и закодировать его с помощью node CLI .
+В этом примере используется node REPL. Если у вас установлен node, просто введите "node" в терминале и нажмите Enter, чтобы получить к нему доступ.
+```bash
+node
+```
 ```bash
 > const initHash = {
   name: "Web34ever Coin",
@@ -107,51 +112,52 @@ This example uses the node REPL. If you have node installed, just type node in t
 > JSON.stringify(initHash);
 < '{"name":"Web34ever Coin","symbol":"web3","decimals":6,"initial_balances":[{"address":"juno1034x52hzw8flvtdc6r4984te2720q72c23y7vd","amount":"12345678000"}]}'
 ```
-# Instantiate the contract
-Note also that the --amount is used to initialise the new account associated with the contract.
-In the example below, 6 is the value of $CODE_ID.
+# Создаем экземпляр контракта
 
+Также обратите внимание, что --amount используется для инициализации новой учетной записи, связанной с контрактом.
+В приведенном ниже примере 65 - это значение $ CODE_ID.
 
 ```bash
-junod tx wasm instantiate 6 \
-    '{"name":"Web34ever Coin","symbol":"web3","decimals":6,"initial_balances":[{"address":"<validator-self-delegate-address>","amount":"12345678000"}]}' \
+junod tx wasm instantiate 65 \
+    '{"name":"Web34ever Coin","symbol":"WEB","decimals":6,"initial_balances":[{"address":"<validator-self-delegate-address>","amount":"12345678000"}]}' \
     --amount 50000ujuno  --label "Web34evercoin erc20" --from web34ever --chain-id lucina --gas auto -y
 ```
 
-If this succeeds, look in the output and get contract address from output e.g juno1a2b.... or run:
+Если это удастся, посмотрите вывод и получите адрес контракта из вывода, например, juno1a2b ....
 
+Далле можем создать переменную нашего смарт контракта для удобства:
 ```bash
-CONTRACT_ADDR=$(junod query wasm list-contract-by-code $CODE_ID | jq -r '.[0].address')
+CONTRACT_ADDR=[аддресс вашего контракта из предыдущей команды]
 ```
-
-This will allow you to query using the value of $CONTRACT_ADDR
+И сделаем запрос для нашего контракта
 
 ```bash
 junod query wasm contract $CONTRACT_ADDR
 ```
 
-# Query and run commands
-How to query and execute commands on your shiny new contract
+# Запросы и команды
+Как запрашивать и выполнять команды в новом нашем блестящем контракте
 
-Now you can check that the contract has assigned the right amount to the self-delegate address:
+Теперь мы можем проверить, что в контракте указана правильная сумма для адреса самоделегирования:
 
 ```bash
 junod query wasm contract-state smart <contract-address> '{"balance":{"address":"<validator-self-delegate-address>"}}'
 ```
-From the example above, it will return:
+Из приведенного выше примера он вернет:
 data:
   balance: "12345678000"
   
-  Using the commands supported by execute work the same way. The incantation for executing commands on a contract via the CLI is:
+Использование команд, поддерживаемых функцией execute, работает таким же образом. "Заклинание" для выполнения команд контракта через интерфейс командной строки выглядит так:
+
 ```bash
 junod tx wasm execute [contract_addr_bech32] [json_encoded_send_args] --amount [coins,optional] [flags]
 ```
-You can omit --amount if not needed for execute calls.
-In this case, your command will look something like:
+Для перевода можно использовать команду:
+
 ```bash
 junod tx wasm execute <contract-addr> '{"transfer":{"amount":"200","owner":"<validator-self-delegate-address>","recipient":"<recipient-address>"}}' --from <your-key> --chain-id <chain-id>
 ```
-In the folder contracts/erc20 within cosmwasm-examples, for example, you can see the schemas:
+В папке контрактов / erc20 внутри cosmwasm-examples, например, вы можете увидеть схемы:
 
 ```bash
 tree schema
@@ -164,7 +170,6 @@ schema
 ├── instantiate_msg.json
 └── query_msg.json
 ```
-Each of the JSON files above is a JSON schema, specifying the correct shape of JSON that it accepts.
+Каждый из файлов JSON выше представляет собой схему JSON, определяющую правильную форму JSON, которую он принимает.
 
-That's all , enjoy your own memcoin on juno, you will have opportunity make this in mainnet after launch. Good luck!
-
+Вот и все, наслаждайтесь своим мемкойном на Juno, у вас будет возможность сделать это в основной сети после запуска. Удачи!
