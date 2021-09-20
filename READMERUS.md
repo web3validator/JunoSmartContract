@@ -31,7 +31,7 @@ rustup update stable
 rustup target list --installed
 rustup target add wasm32-unknown-unknown
 ```
-# Сбилдим Juno для использование в тестнете
+# Сбилдим клиент Juno для использование в тестнете
 Используя go 1.16.3 для компилирования исполняймого бинарника junod 
 ```bash
 # clone juno repo
@@ -42,8 +42,7 @@ make install
 
 which junod
 ```
-# Скачмваем, компилируем и сохраняем
-
+# Устанавливаем CosmWasm
 
 ```bash
 # get the code
