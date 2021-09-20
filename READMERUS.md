@@ -35,7 +35,7 @@ rustup target add wasm32-unknown-unknown
 Используя go 1.16.3 для компилирования исполняймого бинарника junod 
 ```bash
 # clone juno repo
-git clone https://github.com/CosmosContracts/juno.git && cd juno
+git clone https://github.com/CosmosContracts/Juno.git && cd Juno
 
 # build juno executable
 make install
